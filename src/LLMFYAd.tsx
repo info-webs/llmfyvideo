@@ -1042,7 +1042,13 @@ export const LLMFYAd: React.FC = () => {
       {/* Guárdala en: public/audio/background.mp3 */}
       <Audio
         src={staticFile("audio/background.mp3")}
-        volume={0.6}
+        volume={0.3}
+        startFrom={0}
+      />
+      {/* Voice Over */}
+      <Audio
+        src={staticFile("audio/voiceover.mp3")}
+        volume={1}
         startFrom={0}
       />
       {/* Scene 1: Logo + Hook (0-5 sec = frames 0-150) */}
