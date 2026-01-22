@@ -76,7 +76,9 @@ web_modules/
 
 # Next.js build output
 .next
-out
+# Keep out folder but track mp4 files
+out/*
+!out/*.mp4
 
 # Nuxt.js build / generate output
 .nuxt

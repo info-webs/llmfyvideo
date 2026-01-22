@@ -313,7 +313,6 @@ const Scene1_LogoHook: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          transform: `scale(${logoScale})`,
           opacity: logoOpacity,
         }}
       >
@@ -341,16 +340,6 @@ const Scene1_LogoHook: React.FC = () => {
               overflow: "hidden",
             }}
           >
-            {/* Icon shimmer */}
-            <div
-              style={{
-                position: "absolute",
-                width: "200%",
-                height: "100%",
-                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)`,
-                transform: `translateX(${shimmerX - 100}px) skewX(-20deg)`,
-              }}
-            />
             <svg
               width="60"
               height="60"
@@ -380,25 +369,7 @@ const Scene1_LogoHook: React.FC = () => {
               position: "relative",
             }}
           >
-            <span style={{ position: "relative" }}>
-              LLMFY
-              {/* Shimmer overlay */}
-              <span
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  transform: `translateX(${shimmerX}px)`,
-                }}
-              >
-                LLMFY
-              </span>
-            </span>
+            LLMFY
           </div>
         </div>
 
@@ -1032,20 +1003,14 @@ const Scene3_Solution: React.FC = () => {
             fontWeight: 800,
             fontFamily: "system-ui, -apple-system, sans-serif",
             lineHeight: 1.1,
+            color: COLORS.white,
           }}
         >
-          <span style={{ color: COLORS.white }}>Optimiza para </span>
-          <span
-            style={{
-              background: `linear-gradient(${90 + gradientPos}deg, ${COLORS.primary} 0%, ${COLORS.accent} 50%, ${COLORS.cyan} 100%)`,
-              backgroundSize: "200% 100%",
-              backgroundPosition: `${gradientPos}% 0`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            ChatGPT, Perplexity, Claude y Google AI
-          </span>
+          Optimiza para{" "}
+          <span style={{ color: COLORS.accent }}>ChatGPT</span>,{" "}
+          <span style={{ color: COLORS.cyan }}>Perplexity</span>,{" "}
+          <span style={{ color: COLORS.primary }}>Claude</span> y{" "}
+          <span style={{ color: COLORS.pink }}>Google AI</span>
         </div>
       </div>
 
@@ -1105,18 +1070,6 @@ const Scene3_Solution: React.FC = () => {
                   opacity: cardProgress * 0.6,
                 }}
               />
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  borderRadius: 24,
-                  background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
-                }}
-              />
-
               {/* Static border */}
               <div
                 style={{
@@ -1942,9 +1895,9 @@ export const LLMFYAd: React.FC = () => {
         startFrom={0}
       />
 
-      {/* Voiceover V3 */}
+      {/* Voiceover V2 */}
       <Audio
-        src={staticFile("audio/voiceoverv3.mp3")}
+        src={staticFile("audio/voiceoverv2.mp3")}
         volume={1}
         startFrom={0}
       />
