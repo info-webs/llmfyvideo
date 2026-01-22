@@ -1003,20 +1003,14 @@ const Scene3_Solution: React.FC = () => {
             fontWeight: 800,
             fontFamily: "system-ui, -apple-system, sans-serif",
             lineHeight: 1.1,
+            color: COLORS.white,
           }}
         >
-          <span style={{ color: COLORS.white }}>Optimiza para </span>
-          <span
-            style={{
-              background: `linear-gradient(${90 + gradientPos}deg, ${COLORS.primary} 0%, ${COLORS.accent} 50%, ${COLORS.cyan} 100%)`,
-              backgroundSize: "200% 100%",
-              backgroundPosition: `${gradientPos}% 0`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            ChatGPT, Perplexity, Claude y Google AI
-          </span>
+          Optimiza para{" "}
+          <span style={{ color: COLORS.accent }}>ChatGPT</span>,{" "}
+          <span style={{ color: COLORS.cyan }}>Perplexity</span>,{" "}
+          <span style={{ color: COLORS.primary }}>Claude</span> y{" "}
+          <span style={{ color: COLORS.pink }}>Google AI</span>
         </div>
       </div>
 
