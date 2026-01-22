@@ -313,7 +313,6 @@ const Scene1_LogoHook: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          transform: `scale(${logoScale})`,
           opacity: logoOpacity,
         }}
       >
@@ -341,16 +340,6 @@ const Scene1_LogoHook: React.FC = () => {
               overflow: "hidden",
             }}
           >
-            {/* Icon shimmer */}
-            <div
-              style={{
-                position: "absolute",
-                width: "200%",
-                height: "100%",
-                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)`,
-                transform: `translateX(${shimmerX - 100}px) skewX(-20deg)`,
-              }}
-            />
             <svg
               width="60"
               height="60"
@@ -380,25 +369,7 @@ const Scene1_LogoHook: React.FC = () => {
               position: "relative",
             }}
           >
-            <span style={{ position: "relative" }}>
-              LLMFY
-              {/* Shimmer overlay */}
-              <span
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  transform: `translateX(${shimmerX}px)`,
-                }}
-              >
-                LLMFY
-              </span>
-            </span>
+            LLMFY
           </div>
         </div>
 
@@ -1105,18 +1076,6 @@ const Scene3_Solution: React.FC = () => {
                   opacity: cardProgress * 0.6,
                 }}
               />
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  borderRadius: 24,
-                  background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
-                }}
-              />
-
               {/* Static border */}
               <div
                 style={{
