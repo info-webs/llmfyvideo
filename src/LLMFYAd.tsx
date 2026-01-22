@@ -1895,9 +1895,9 @@ export const LLMFYAd: React.FC = () => {
         startFrom={0}
       />
 
-      {/* Voiceover V3 */}
+      {/* Voiceover V2 */}
       <Audio
-        src={staticFile("audio/voiceoverv3.mp3")}
+        src={staticFile("audio/voiceoverv2.mp3")}
         volume={1}
         startFrom={0}
       />
