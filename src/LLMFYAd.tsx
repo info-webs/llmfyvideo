@@ -1891,7 +1891,7 @@ export const LLMFYAd: React.FC = () => {
       {/* Background Music V2 */}
       <Audio
         src={staticFile("audio/backgroundv2.mp3")}
-        volume={0.5}
+        volume={0.25}
         startFrom={0}
       />
 
