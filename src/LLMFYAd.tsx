@@ -663,7 +663,7 @@ const Scene2_Problem: React.FC = () => {
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            de usuarios usan IA para buscar
+            de usuarios ya buscan en ChatGPT
           </div>
         </div>
 
@@ -711,7 +711,7 @@ const Scene2_Problem: React.FC = () => {
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            herramientas de optimización para LLMs
+            visibilidad si no optimizas para IA
           </div>
         </div>
 
@@ -784,7 +784,7 @@ const Scene2_Problem: React.FC = () => {
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            oportunidades perdidas cada día
+            clientes que van a tu competencia
           </div>
         </div>
       </div>
@@ -1719,11 +1719,24 @@ const Scene5_CTA: React.FC = () => {
           style={{
             fontSize: 32,
             color: COLORS.gray,
-            marginBottom: 60,
+            marginBottom: 15,
             fontFamily: "system-ui, -apple-system, sans-serif",
           }}
         >
-          Prueba gratis 7 días • Cancela cuando quieras
+          Descubre qué dice ChatGPT de tu marca
+        </div>
+
+        {/* Secondary line */}
+        <div
+          style={{
+            fontSize: 24,
+            color: COLORS.gray,
+            marginBottom: 60,
+            fontFamily: "system-ui, -apple-system, sans-serif",
+            opacity: 0.8,
+          }}
+        >
+          3 análisis gratis • Sin tarjeta • 30 segundos
         </div>
 
         {/* CTA Button with ripples */}
@@ -1783,7 +1796,7 @@ const Scene5_CTA: React.FC = () => {
                 position: "relative",
               }}
             >
-              Empieza gratis en llmfy.ai
+              Analiza tu web AHORA
             </span>
             <svg
               width="32"
@@ -1847,7 +1860,7 @@ const Scene5_CTA: React.FC = () => {
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            LLMFY
+            llmfy.ai
           </span>
         </div>
       </div>
