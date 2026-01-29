@@ -1711,7 +1711,7 @@ const Scene5_CTA: React.FC = () => {
             lineHeight: 1.1,
           }}
         >
-          Domina el SEO del futuro
+          Aparece cuando la IA responde
         </div>
 
         {/* Subheadline */}
@@ -1723,7 +1723,7 @@ const Scene5_CTA: React.FC = () => {
             fontFamily: "system-ui, -apple-system, sans-serif",
           }}
         >
-          Descubre qué dice ChatGPT de tu marca
+          ¿Qué puntuación tiene tu web para los LLMs?
         </div>
 
         {/* Secondary line */}
@@ -1736,7 +1736,7 @@ const Scene5_CTA: React.FC = () => {
             opacity: 0.8,
           }}
         >
-          3 análisis gratis • Sin tarjeta • 30 segundos
+          Sin tarjeta • Sin spam • Solo resultados
         </div>
 
         {/* CTA Button with ripples */}
