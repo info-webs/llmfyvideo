@@ -816,24 +816,64 @@ const Scene3_Solution: React.FC = () => {
       title: "E-E-A-T Audit",
       desc: "Analiza tu autoridad y confianza",
       color: COLORS.primary,
+      isNew: false,
+      isComingSoon: false,
     },
     {
       icon: "schema",
       title: "Schema Scan",
       desc: "Optimiza datos estructurados",
       color: COLORS.accent,
+      isNew: false,
+      isComingSoon: false,
     },
     {
       icon: "semantic",
       title: "Semantic Analysis",
       desc: "Compara con competidores",
       color: COLORS.cyan,
+      isNew: false,
+      isComingSoon: false,
     },
     {
       icon: "llm",
       title: "LLM Optimization",
       desc: "Mejora citabilidad en IAs",
       color: COLORS.pink,
+      isNew: false,
+      isComingSoon: false,
+    },
+    {
+      icon: "brand",
+      title: "Brand Sentiment",
+      desc: "Monitoriza la percepción de tu marca",
+      color: COLORS.accent,
+      isNew: true,
+      isComingSoon: false,
+    },
+    {
+      icon: "tracking",
+      title: "LLM Tracking",
+      desc: "Rastrea menciones en modelos de IA",
+      color: COLORS.cyan,
+      isNew: true,
+      isComingSoon: false,
+    },
+    {
+      icon: "robots",
+      title: "Robots.txt Optimizer",
+      desc: "Controla el acceso de crawlers IA",
+      color: COLORS.primary,
+      isNew: true,
+      isComingSoon: false,
+    },
+    {
+      icon: "analytics",
+      title: "Google Analytics Integration",
+      desc: "Conecta tus métricas de rendimiento",
+      color: COLORS.accentDark,
+      isNew: false,
+      isComingSoon: true,
     },
   ];
 
@@ -843,8 +883,8 @@ const Scene3_Solution: React.FC = () => {
     const scale = interpolate(Math.sin(frame * 0.08), [-1, 1], [0.95, 1.05]);
 
     const iconProps = {
-      width: 40,
-      height: 40,
+      width: 28,
+      height: 28,
       viewBox: "0 0 24 24",
       fill: "none",
       stroke: color,
@@ -886,6 +926,37 @@ const Scene3_Solution: React.FC = () => {
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
           </svg>
         );
+      case "brand":
+        return (
+          <svg {...iconProps}>
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        );
+      case "tracking":
+        return (
+          <svg {...iconProps}>
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+        );
+      case "robots":
+        return (
+          <svg {...iconProps}>
+            <rect x="3" y="11" width="18" height="10" rx="2" />
+            <circle cx="9" cy="16" r="1.5" fill={color} />
+            <circle cx="15" cy="16" r="1.5" fill={color} />
+            <path d="M12 2v4" />
+            <path d="M8 7h8" />
+            <circle cx="12" cy="6" r="2" />
+          </svg>
+        );
+      case "analytics":
+        return (
+          <svg {...iconProps}>
+            <rect x="3" y="12" width="4" height="9" rx="1" />
+            <rect x="10" y="7" width="4" height="14" rx="1" />
+            <rect x="17" y="3" width="4" height="18" rx="1" />
+          </svg>
+        );
       default:
         return null;
     }
@@ -904,7 +975,7 @@ const Scene3_Solution: React.FC = () => {
     <AbsoluteFill
       style={{
         background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
-        padding: 100,
+        padding: "60px 80px",
         overflow: "hidden",
       }}
     >
@@ -979,19 +1050,19 @@ const Scene3_Solution: React.FC = () => {
         style={{
           opacity: fadeIn,
           textAlign: "center",
-          marginBottom: 60,
+          marginBottom: 30,
           position: "relative",
           zIndex: 10,
         }}
       >
         <div
           style={{
-            fontSize: 24,
+            fontSize: 22,
             fontWeight: 600,
             color: COLORS.primary,
             textTransform: "uppercase",
             letterSpacing: "0.2em",
-            marginBottom: 20,
+            marginBottom: 14,
             fontFamily: "system-ui, -apple-system, sans-serif",
           }}
         >
@@ -999,7 +1070,7 @@ const Scene3_Solution: React.FC = () => {
         </div>
         <div
           style={{
-            fontSize: 68,
+            fontSize: 52,
             fontWeight: 800,
             fontFamily: "system-ui, -apple-system, sans-serif",
             lineHeight: 1.1,
@@ -1019,7 +1090,7 @@ const Scene3_Solution: React.FC = () => {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: 40,
+          gap: 20,
           maxWidth: 1400,
           margin: "0 auto",
           position: "relative",
@@ -1028,31 +1099,36 @@ const Scene3_Solution: React.FC = () => {
       >
         {features.map((feature, i) => {
           const cardProgress = spring({
-            frame: frame - 30 - i * 12,
+            frame: frame - 30 - i * 8,
             fps,
             config: { damping: 12, stiffness: 80 },
           });
 
           // Border light sweep effect
           const sweepAngle = interpolate(
-            (frame - 30 - i * 12) % 120,
+            (frame - 30 - i * 8) % 120,
             [0, 120],
             [0, 360]
           );
+
+          // Pulsing effect for coming soon badge
+          const comingSoonPulse = feature.isComingSoon
+            ? interpolate(Math.sin(frame * 0.1), [-1, 1], [0.6, 1])
+            : 1;
 
           return (
             <div
               key={i}
               style={{
                 background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
-                borderRadius: 24,
-                padding: 40,
+                borderRadius: 18,
+                padding: "18px 24px",
                 display: "flex",
                 alignItems: "center",
-                gap: 30,
+                gap: 20,
                 transform: `scale(${cardProgress}) translateY(${(1 - cardProgress) * 30}px)`,
-                opacity: cardProgress,
-                boxShadow: `0 20px 40px ${COLORS.darker}80`,
+                opacity: feature.isComingSoon ? cardProgress * 0.55 : cardProgress,
+                boxShadow: `0 12px 30px ${COLORS.darker}80`,
                 position: "relative",
                 overflow: "hidden",
               }}
@@ -1065,7 +1141,7 @@ const Scene3_Solution: React.FC = () => {
                   left: -2,
                   right: -2,
                   bottom: -2,
-                  borderRadius: 26,
+                  borderRadius: 20,
                   background: `conic-gradient(from ${sweepAngle}deg, transparent 0deg, ${feature.color} 30deg, transparent 60deg)`,
                   opacity: cardProgress * 0.6,
                 }}
@@ -1078,7 +1154,7 @@ const Scene3_Solution: React.FC = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  borderRadius: 24,
+                  borderRadius: 18,
                   border: `1px solid ${feature.color}40`,
                 }}
               />
@@ -1086,36 +1162,79 @@ const Scene3_Solution: React.FC = () => {
               {/* Icon container */}
               <div
                 style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: 20,
+                  width: 56,
+                  height: 56,
+                  minWidth: 56,
+                  borderRadius: 14,
                   background: `linear-gradient(135deg, ${feature.color}30 0%, ${feature.color}10 100%)`,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   position: "relative",
                   zIndex: 1,
-                  boxShadow: `0 0 30px ${feature.color}30`,
+                  boxShadow: `0 0 20px ${feature.color}30`,
                 }}
               >
                 <FeatureIcon type={feature.icon} color={feature.color} frame={frame} />
               </div>
 
-              <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ position: "relative", zIndex: 1, flex: 1 }}>
                 <div
                   style={{
-                    fontSize: 28,
-                    fontWeight: 700,
-                    color: COLORS.white,
-                    marginBottom: 8,
-                    fontFamily: "system-ui, -apple-system, sans-serif",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    marginBottom: 4,
                   }}
                 >
-                  {feature.title}
+                  <div
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      color: COLORS.white,
+                      fontFamily: "system-ui, -apple-system, sans-serif",
+                    }}
+                  >
+                    {feature.title}
+                  </div>
+                  {feature.isNew && (
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: COLORS.white,
+                        background: COLORS.accentLight,
+                        padding: "2px 8px",
+                        borderRadius: 6,
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
+                        fontFamily: "system-ui, -apple-system, sans-serif",
+                      }}
+                    >
+                      NEW
+                    </div>
+                  )}
+                  {feature.isComingSoon && (
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: COLORS.white,
+                        background: COLORS.accent,
+                        padding: "2px 8px",
+                        borderRadius: 6,
+                        letterSpacing: "0.05em",
+                        fontFamily: "system-ui, -apple-system, sans-serif",
+                        opacity: comingSoonPulse,
+                      }}
+                    >
+                      Próximamente
+                    </div>
+                  )}
                 </div>
                 <div
                   style={{
-                    fontSize: 20,
+                    fontSize: 16,
                     color: COLORS.gray,
                     fontFamily: "system-ui, -apple-system, sans-serif",
                   }}
