@@ -868,12 +868,13 @@ const Scene3_Solution: React.FC = () => {
       isComingSoon: false,
     },
     {
-      icon: "analytics",
-      title: "Google Analytics Integration",
-      desc: "Conecta tus métricas de rendimiento",
-      color: COLORS.accentDark,
+      icon: "consultor",
+      title: "Consultor AIO",
+      desc: "Tu consultor de IA personal",
+      color: "#22C55E",
       isNew: false,
-      isComingSoon: true,
+      isComingSoon: false,
+      isFree: true,
     },
   ];
 
@@ -949,12 +950,11 @@ const Scene3_Solution: React.FC = () => {
             <circle cx="12" cy="6" r="2" />
           </svg>
         );
-      case "analytics":
+      case "consultor":
         return (
           <svg {...iconProps}>
-            <rect x="3" y="12" width="4" height="9" rx="1" />
-            <rect x="10" y="7" width="4" height="14" rx="1" />
-            <rect x="17" y="3" width="4" height="18" rx="1" />
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            <path d="M9 10l2 2 4-4" />
           </svg>
         );
       default:
@@ -1229,6 +1229,24 @@ const Scene3_Solution: React.FC = () => {
                       }}
                     >
                       Próximamente
+                    </div>
+                  )}
+                  {feature.isFree && (
+                    <div
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 800,
+                        color: "#FFFFFF",
+                        background: "#22C55E",
+                        padding: "3px 10px",
+                        borderRadius: 6,
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
+                        fontFamily: "system-ui, -apple-system, sans-serif",
+                        boxShadow: "0 0 12px #22C55E80",
+                      }}
+                    >
+                      GRATIS
                     </div>
                   )}
                 </div>
