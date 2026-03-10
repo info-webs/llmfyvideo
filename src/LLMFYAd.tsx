@@ -364,14 +364,24 @@ const Scene1_LogoHook: React.FC = () => {
               fontWeight: 800,
               fontFamily: "system-ui, -apple-system, sans-serif",
               letterSpacing: "-0.02em",
-              background: `linear-gradient(90deg, #FFFFFF ${shimmerX - 10}%, #FFFFFF ${shimmerX - 5}%, rgba(255,255,255,0.6) ${shimmerX}%, #FFFFFF ${shimmerX + 5}%, #FFFFFF ${shimmerX + 10}%)`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              color: "#FFFFFF",
               position: "relative",
+              overflow: "hidden",
             }}
           >
             LLMFY
+            {/* Shimmer overlay */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: `linear-gradient(90deg, transparent ${shimmerX - 10}%, rgba(255,255,255,0.4) ${shimmerX}%, transparent ${shimmerX + 10}%)`,
+                pointerEvents: "none",
+              }}
+            />
           </div>
         </div>
 
