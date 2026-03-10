@@ -363,7 +363,7 @@ const Scene1_LogoHook: React.FC = () => {
               fontWeight: 800,
               fontFamily: "system-ui, -apple-system, sans-serif",
               letterSpacing: "-0.02em",
-              background: `linear-gradient(135deg, ${COLORS.white} 0%, ${COLORS.grayLight} 100%)`,
+              background: `linear-gradient(90deg, ${COLORS.grayLight} ${shimmerX - 10}%, rgba(255,255,255,0.95) ${shimmerX}%, ${COLORS.grayLight} ${shimmerX + 10}%)`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               position: "relative",
@@ -400,14 +400,14 @@ const Scene1_LogoHook: React.FC = () => {
       >
         <div
           style={{
-            fontSize: 52,
+            fontSize: 48,
             fontWeight: 700,
             fontFamily: "system-ui, -apple-system, sans-serif",
             color: COLORS.white,
             lineHeight: 1.2,
           }}
         >
-          ¿Tu web aparece cuando{" "}
+          ¿Tu web aparece en las{" "}
           <span
             style={{
               background: `linear-gradient(90deg, ${COLORS.primary} 0%, ${COLORS.accent} 100%)`,
@@ -415,9 +415,9 @@ const Scene1_LogoHook: React.FC = () => {
               WebkitTextFillColor: "transparent",
             }}
           >
-            ChatGPT
-          </span>{" "}
-          responde?
+            Google AI Overviews
+          </span>
+          ?
         </div>
       </div>
 
