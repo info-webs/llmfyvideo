@@ -1600,7 +1600,7 @@ const Scene5_CTA: React.FC = () => {
     const speed = 2 + (i % 5) * 0.5;
     const wobble = Math.sin(frame * 0.05 + i) * 50;
     const rotationSpeed = (i % 2 === 0 ? 1 : -1) * (2 + i % 3);
-    const size = 6 + Math.random() * 10;
+    const size = 6 + Math.abs(Math.sin(i * 12.9898 + frame * 78.233)) % 1 * 10;
     const shape = i % 4; // 0: circle, 1: rect, 2: star, 3: diamond
 
     return {
@@ -1718,7 +1718,7 @@ const Scene5_CTA: React.FC = () => {
             lineHeight: 1.1,
           }}
         >
-          Aparece cuando la IA responde
+          Aparece en las AI Overviews y en los LLMs
         </div>
 
         {/* Subheadline */}
@@ -1872,6 +1872,7 @@ const Scene5_CTA: React.FC = () => {
         </div>
       </div>
 
+      <Scanlines opacity={0.009} />
       <Vignette intensity={0.4} />
       <FilmGrain opacity={0.012} />
     </AbsoluteFill>
