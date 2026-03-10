@@ -175,8 +175,9 @@ const Scene1_LogoHook: React.FC = () => {
   const glowIntensity3 = interpolate(Math.cos(frame * 0.12), [-1, 1], [0.15, 0.4]);
 
   // Shimmer effect for logo text
-  const shimmerX = interpolate(frame, [0, 60, 120], [-200, 400, -200], {
-    extrapolateRight: "extend",
+  const shimmerX = interpolate(frame % 120, [0, 60, 120], [-20, 120, -20], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
   });
 
   // Hook text animation
@@ -363,9 +364,10 @@ const Scene1_LogoHook: React.FC = () => {
               fontWeight: 800,
               fontFamily: "system-ui, -apple-system, sans-serif",
               letterSpacing: "-0.02em",
-              background: `linear-gradient(90deg, ${COLORS.grayLight} ${shimmerX - 10}%, rgba(255,255,255,0.95) ${shimmerX}%, ${COLORS.grayLight} ${shimmerX + 10}%)`,
+              background: `linear-gradient(90deg, #FFFFFF ${shimmerX - 10}%, #FFFFFF ${shimmerX - 5}%, rgba(255,255,255,0.6) ${shimmerX}%, #FFFFFF ${shimmerX + 5}%, #FFFFFF ${shimmerX + 10}%)`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
               position: "relative",
             }}
           >
