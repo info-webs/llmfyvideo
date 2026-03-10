@@ -449,15 +449,27 @@ const Scene2_Problem: React.FC = () => {
   const stat2Progress = spring({ frame: frame - 35, fps, config: { damping: 15 } });
   const stat3Progress = spring({ frame: frame - 50, fps, config: { damping: 15 } });
 
-  // Animated percentage
-  const percentage = Math.min(Math.floor(interpolate(frame, [20, 80], [0, 70])), 70);
+  // Animated percentages for each stat
+  const stat1Value = Math.min(
+    parseFloat(interpolate(frame, [20, 80], [0, 73.7]).toFixed(1)),
+    73.7
+  );
+  const stat2Value = Math.min(
+    parseFloat(interpolate(frame, [35, 80], [0, 3.2]).toFixed(1)),
+    3.2
+  );
+  const stat3Value = Math.min(
+    Math.floor(interpolate(frame, [50, 80], [0, 20])),
+    20
+  );
 
   // Spark effect when counter completes
   const showSparks = frame > 80;
   const sparkOpacity = interpolate(frame, [80, 100], [1, 0], { extrapolateRight: "clamp" });
 
-  // Glitch effect for infinity symbol
-  const glitchOffset = frame % 30 < 2 ? Math.random() * 4 - 2 : 0;
+  // Glitch effect - deterministic pseudo-random based on frame
+  const pseudoRandom = Math.sin(frame * 12.9898 + 78.233) * 43758.5453 % 1;
+  const glitchOffset = frame % 30 < 2 ? pseudoRandom * 4 - 2 : 0;
   const glitchOpacity = frame % 45 < 3 ? 0.7 : 1;
 
   // Pulse effect for cards
@@ -635,7 +647,7 @@ const Scene2_Problem: React.FC = () => {
               position: "relative",
             }}
           >
-            {percentage}%
+            {stat1Value}%
             {/* Sparks when complete */}
             {showSparks && Array.from({ length: 8 }).map((_, i) => (
               <div
@@ -657,13 +669,24 @@ const Scene2_Problem: React.FC = () => {
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: COLORS.gray,
               marginTop: 10,
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            de usuarios ya buscan en ChatGPT
+            de búsquedas siguen en Google
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              color: COLORS.gray,
+              marginTop: 6,
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              opacity: 0.6,
+            }}
+          >
+            SparkToro/Datos 2026
           </div>
         </div>
 
@@ -701,17 +724,28 @@ const Scene2_Problem: React.FC = () => {
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            0
+            {stat2Value}%
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: COLORS.gray,
               marginTop: 10,
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            visibilidad si no optimizas para IA
+            herramientas IA (ChatGPT, etc.)
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              color: COLORS.gray,
+              marginTop: 6,
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              opacity: 0.6,
+            }}
+          >
+            Todas combinadas
           </div>
         </div>
 
@@ -758,7 +792,7 @@ const Scene2_Problem: React.FC = () => {
                 opacity: glitchOpacity,
               }}
             >
-              ∞
+              -{stat3Value}%
             </span>
             {/* Glitch overlay */}
             {frame % 30 < 2 && (
@@ -772,19 +806,30 @@ const Scene2_Problem: React.FC = () => {
                   clipPath: "inset(30% 0 40% 0)",
                 }}
               >
-                ∞
+                -{stat3Value}%
               </span>
             )}
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: COLORS.gray,
               marginTop: 10,
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            clientes que van a tu competencia
+            tráfico orgánico por AI Overviews
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              color: COLORS.gray,
+              marginTop: 6,
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              opacity: 0.6,
+            }}
+          >
+            Datos propios de agencia
           </div>
         </div>
       </div>
