@@ -1201,10 +1201,10 @@ const Scene4_Demo: React.FC = () => {
 
   // Progress bars animation with glow
   const progressBars = [
-    { label: "Experience", value: 85, color: COLORS.primary },
-    { label: "Expertise", value: 92, color: COLORS.accent },
-    { label: "Authority", value: 78, color: COLORS.primaryLight },
-    { label: "Trust", value: 88, color: COLORS.accentLight },
+    { label: "Experiencia", value: 85, color: COLORS.primary },
+    { label: "Conocimiento", value: 92, color: COLORS.accent },
+    { label: "Autoridad", value: 78, color: COLORS.primaryLight },
+    { label: "Confianza", value: 88, color: COLORS.accentLight },
   ];
 
   // Data particles flowing towards dashboard
@@ -1551,6 +1551,7 @@ const Scene4_Demo: React.FC = () => {
         </div>
       </div>
 
+      <Scanlines opacity={0.009} />
       <Vignette intensity={0.35} />
       <FilmGrain opacity={0.015} />
     </AbsoluteFill>
