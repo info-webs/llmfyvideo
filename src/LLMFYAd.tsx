@@ -363,7 +363,7 @@ const Scene1_LogoHook: React.FC = () => {
               fontWeight: 800,
               fontFamily: "system-ui, -apple-system, sans-serif",
               letterSpacing: "-0.02em",
-              background: `linear-gradient(135deg, ${COLORS.white} 0%, ${COLORS.grayLight} 100%)`,
+              background: `linear-gradient(90deg, ${COLORS.grayLight} ${shimmerX - 10}%, rgba(255,255,255,0.95) ${shimmerX}%, ${COLORS.grayLight} ${shimmerX + 10}%)`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               position: "relative",
@@ -400,14 +400,14 @@ const Scene1_LogoHook: React.FC = () => {
       >
         <div
           style={{
-            fontSize: 52,
+            fontSize: 48,
             fontWeight: 700,
             fontFamily: "system-ui, -apple-system, sans-serif",
             color: COLORS.white,
             lineHeight: 1.2,
           }}
         >
-          ¿Tu web aparece cuando{" "}
+          ¿Tu web aparece en las{" "}
           <span
             style={{
               background: `linear-gradient(90deg, ${COLORS.primary} 0%, ${COLORS.accent} 100%)`,
@@ -415,9 +415,9 @@ const Scene1_LogoHook: React.FC = () => {
               WebkitTextFillColor: "transparent",
             }}
           >
-            ChatGPT
-          </span>{" "}
-          responde?
+            Google AI Overviews
+          </span>
+          ?
         </div>
       </div>
 
@@ -449,15 +449,27 @@ const Scene2_Problem: React.FC = () => {
   const stat2Progress = spring({ frame: frame - 35, fps, config: { damping: 15 } });
   const stat3Progress = spring({ frame: frame - 50, fps, config: { damping: 15 } });
 
-  // Animated percentage
-  const percentage = Math.min(Math.floor(interpolate(frame, [20, 80], [0, 70])), 70);
+  // Animated percentages for each stat
+  const stat1Value = Math.min(
+    parseFloat(interpolate(frame, [20, 80], [0, 73.7]).toFixed(1)),
+    73.7
+  );
+  const stat2Value = Math.min(
+    parseFloat(interpolate(frame, [35, 80], [0, 3.2]).toFixed(1)),
+    3.2
+  );
+  const stat3Value = Math.min(
+    Math.floor(interpolate(frame, [50, 80], [0, 20])),
+    20
+  );
 
   // Spark effect when counter completes
   const showSparks = frame > 80;
   const sparkOpacity = interpolate(frame, [80, 100], [1, 0], { extrapolateRight: "clamp" });
 
-  // Glitch effect for infinity symbol
-  const glitchOffset = frame % 30 < 2 ? Math.random() * 4 - 2 : 0;
+  // Glitch effect - deterministic pseudo-random based on frame
+  const pseudoRandom = Math.sin(frame * 12.9898 + 78.233) * 43758.5453 % 1;
+  const glitchOffset = frame % 30 < 2 ? pseudoRandom * 4 - 2 : 0;
   const glitchOpacity = frame % 45 < 3 ? 0.7 : 1;
 
   // Pulse effect for cards
@@ -635,7 +647,7 @@ const Scene2_Problem: React.FC = () => {
               position: "relative",
             }}
           >
-            {percentage}%
+            {stat1Value}%
             {/* Sparks when complete */}
             {showSparks && Array.from({ length: 8 }).map((_, i) => (
               <div
@@ -657,13 +669,24 @@ const Scene2_Problem: React.FC = () => {
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: COLORS.gray,
               marginTop: 10,
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            de usuarios ya buscan en ChatGPT
+            de búsquedas siguen en Google
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              color: COLORS.gray,
+              marginTop: 6,
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              opacity: 0.6,
+            }}
+          >
+            SparkToro/Datos 2026
           </div>
         </div>
 
@@ -701,17 +724,28 @@ const Scene2_Problem: React.FC = () => {
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            0
+            {stat2Value}%
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: COLORS.gray,
               marginTop: 10,
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            visibilidad si no optimizas para IA
+            herramientas IA (ChatGPT, etc.)
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              color: COLORS.gray,
+              marginTop: 6,
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              opacity: 0.6,
+            }}
+          >
+            Todas combinadas
           </div>
         </div>
 
@@ -758,7 +792,7 @@ const Scene2_Problem: React.FC = () => {
                 opacity: glitchOpacity,
               }}
             >
-              ∞
+              -{stat3Value}%
             </span>
             {/* Glitch overlay */}
             {frame % 30 < 2 && (
@@ -772,19 +806,30 @@ const Scene2_Problem: React.FC = () => {
                   clipPath: "inset(30% 0 40% 0)",
                 }}
               >
-                ∞
+                -{stat3Value}%
               </span>
             )}
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: COLORS.gray,
               marginTop: 10,
               fontFamily: "system-ui, -apple-system, sans-serif",
             }}
           >
-            clientes que van a tu competencia
+            tráfico orgánico por AI Overviews
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              color: COLORS.gray,
+              marginTop: 6,
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              opacity: 0.6,
+            }}
+          >
+            Datos propios de agencia
           </div>
         </div>
       </div>
@@ -806,161 +851,38 @@ const Scene3_Solution: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
-  // Animated gradient position for title
-  const gradientPos = interpolate(frame, [0, 240], [0, 100]);
-
-  // Feature cards with SVG icons
-  const features = [
-    {
-      icon: "eeat",
-      title: "E-E-A-T Audit",
-      desc: "Analiza tu autoridad y confianza",
-      color: COLORS.primary,
-      isNew: false,
-      isComingSoon: false,
-    },
-    {
-      icon: "schema",
-      title: "Schema Scan",
-      desc: "Optimiza datos estructurados",
-      color: COLORS.accent,
-      isNew: false,
-      isComingSoon: false,
-    },
-    {
-      icon: "semantic",
-      title: "Semantic Analysis",
-      desc: "Compara con competidores",
-      color: COLORS.cyan,
-      isNew: false,
-      isComingSoon: false,
-    },
-    {
-      icon: "llm",
-      title: "LLM Optimization",
-      desc: "Mejora citabilidad en IAs",
-      color: COLORS.pink,
-      isNew: false,
-      isComingSoon: false,
-    },
-    {
-      icon: "brand",
-      title: "Brand Sentiment",
-      desc: "Monitoriza la percepción de tu marca",
-      color: COLORS.accent,
-      isNew: true,
-      isComingSoon: false,
-    },
-    {
-      icon: "tracking",
-      title: "LLM Tracking",
-      desc: "Rastrea menciones en modelos de IA",
-      color: COLORS.cyan,
-      isNew: true,
-      isComingSoon: false,
-    },
-    {
-      icon: "robots",
-      title: "Robots.txt Optimizer",
-      desc: "Controla el acceso de crawlers IA",
-      color: COLORS.primary,
-      isNew: true,
-      isComingSoon: false,
-    },
-    {
-      icon: "consultor",
-      title: "Consultor AIO",
-      desc: "Tu consultor de IA personal",
-      color: "#22C55E",
-      isNew: false,
-      isComingSoon: false,
-      isFree: true,
-    },
+  // 3-column layout: left (4), center (3), right (4)
+  const columns: {
+    emoji: string;
+    title: string;
+    desc: string;
+    color: string;
+    isNew: boolean;
+  }[][] = [
+    // Left column (4 features)
+    [
+      { emoji: "📊", title: "LLMO Score", desc: "Puntuación de optimización IA", color: COLORS.primary, isNew: false },
+      { emoji: "🔍", title: "Prompt Tracker", desc: "Monitoriza tu visibilidad en 5 plataformas IA", color: COLORS.cyan, isNew: true },
+      { emoji: "💬", title: "Brand Sentiment", desc: "Análisis de sentimiento de marca", color: COLORS.accent, isNew: false },
+      { emoji: "📎", title: "LLM Citability", desc: "Probabilidad de citación por LLMs", color: COLORS.pink, isNew: false },
+    ],
+    // Center column (3 features)
+    [
+      { emoji: "🛡️", title: "E-E-A-T Audit", desc: "Auditoría de confianza y autoridad", color: COLORS.primary, isNew: false },
+      { emoji: "📈", title: "AI Analytics", desc: "Tráfico IA en tu Google Analytics", color: COLORS.accent, isNew: true },
+      { emoji: "🤖", title: "Robots.txt Optimizer", desc: "Controla el acceso de bots IA", color: COLORS.primary, isNew: false },
+    ],
+    // Right column (4 features)
+    [
+      { emoji: "🏷️", title: "Schema Scan", desc: "Datos estructurados para IA", color: COLORS.accent, isNew: false },
+      { emoji: "🏗️", title: "AI Building", desc: "Vecindario de co-citación IA", color: COLORS.cyan, isNew: true },
+      { emoji: "🧠", title: "Semantic Analysis", desc: "Profundidad semántica vs competencia", color: COLORS.cyan, isNew: false },
+      { emoji: "⚡", title: "IndexNow", desc: "Notifica cambios a buscadores al instante", color: COLORS.pink, isNew: false },
+    ],
   ];
 
-  // SVG Icons component
-  const FeatureIcon: React.FC<{ type: string; color: string; frame: number }> = ({ type, color, frame }) => {
-    const rotation = interpolate(Math.sin(frame * 0.05), [-1, 1], [-5, 5]);
-    const scale = interpolate(Math.sin(frame * 0.08), [-1, 1], [0.95, 1.05]);
-
-    const iconProps = {
-      width: 28,
-      height: 28,
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: color,
-      strokeWidth: 2,
-      strokeLinecap: "round" as const,
-      strokeLinejoin: "round" as const,
-      style: { transform: `rotate(${rotation}deg) scale(${scale})` },
-    };
-
-    switch (type) {
-      case "eeat":
-        return (
-          <svg {...iconProps}>
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 6v6l4 2" />
-            <path d="M16 16l2 2" />
-          </svg>
-        );
-      case "schema":
-        return (
-          <svg {...iconProps}>
-            <rect x="3" y="3" width="7" height="7" />
-            <rect x="14" y="3" width="7" height="7" />
-            <rect x="14" y="14" width="7" height="7" />
-            <rect x="3" y="14" width="7" height="7" />
-          </svg>
-        );
-      case "semantic":
-        return (
-          <svg {...iconProps}>
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 2v4m0 12v4M2 12h4m12 0h4" />
-            <path d="M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
-          </svg>
-        );
-      case "llm":
-        return (
-          <svg {...iconProps}>
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-          </svg>
-        );
-      case "brand":
-        return (
-          <svg {...iconProps}>
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-        );
-      case "tracking":
-        return (
-          <svg {...iconProps}>
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-          </svg>
-        );
-      case "robots":
-        return (
-          <svg {...iconProps}>
-            <rect x="3" y="11" width="18" height="10" rx="2" />
-            <circle cx="9" cy="16" r="1.5" fill={color} />
-            <circle cx="15" cy="16" r="1.5" fill={color} />
-            <path d="M12 2v4" />
-            <path d="M8 7h8" />
-            <circle cx="12" cy="6" r="2" />
-          </svg>
-        );
-      case "consultor":
-        return (
-          <svg {...iconProps}>
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            <path d="M9 10l2 2 4-4" />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
+  // Column animation delays (wave from left to right)
+  const columnDelays = [0, 15, 25];
 
   // Circuit pattern lines
   const circuitLines = Array.from({ length: 8 }, (_, i) => ({
@@ -975,7 +897,7 @@ const Scene3_Solution: React.FC = () => {
     <AbsoluteFill
       style={{
         background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
-        padding: "60px 80px",
+        padding: "50px 60px",
         overflow: "hidden",
       }}
     >
@@ -1050,7 +972,7 @@ const Scene3_Solution: React.FC = () => {
         style={{
           opacity: fadeIn,
           textAlign: "center",
-          marginBottom: 30,
+          marginBottom: 25,
           position: "relative",
           zIndex: 10,
         }}
@@ -1070,7 +992,7 @@ const Scene3_Solution: React.FC = () => {
         </div>
         <div
           style={{
-            fontSize: 52,
+            fontSize: 48,
             fontWeight: 800,
             fontFamily: "system-ui, -apple-system, sans-serif",
             lineHeight: 1.1,
@@ -1085,212 +1007,159 @@ const Scene3_Solution: React.FC = () => {
         </div>
       </div>
 
-      {/* Features Grid */}
+      {/* Features Grid — 3 columns */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 20,
-          maxWidth: 1400,
+          display: "flex",
+          gap: 16,
+          maxWidth: 1760,
           margin: "0 auto",
           position: "relative",
           zIndex: 10,
+          justifyContent: "center",
         }}
       >
-        {features.map((feature, i) => {
-          const cardProgress = spring({
-            frame: frame - 30 - i * 8,
-            fps,
-            config: { damping: 12, stiffness: 80 },
-          });
+        {columns.map((col, colIdx) => (
+          <div
+            key={colIdx}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 14,
+              flex: colIdx === 1 ? "0 0 31%" : "0 0 31%",
+            }}
+          >
+            {col.map((feature, rowIdx) => {
+              const cardDelay = 20 + columnDelays[colIdx] + rowIdx * 5;
+              const cardProgress = spring({
+                frame: frame - cardDelay,
+                fps,
+                config: { damping: 12, stiffness: 80 },
+              });
 
-          // Border light sweep effect
-          const sweepAngle = interpolate(
-            (frame - 30 - i * 8) % 120,
-            [0, 120],
-            [0, 360]
-          );
+              const sweepAngle = interpolate(
+                (frame - cardDelay) % 120,
+                [0, 120],
+                [0, 360]
+              );
 
-          // Pulsing effect for coming soon badge
-          const comingSoonPulse = feature.isComingSoon
-            ? interpolate(Math.sin(frame * 0.1), [-1, 1], [0.6, 1])
-            : 1;
-
-          return (
-            <div
-              key={i}
-              style={{
-                background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
-                borderRadius: 18,
-                padding: "18px 24px",
-                display: "flex",
-                alignItems: "center",
-                gap: 20,
-                transform: `scale(${cardProgress}) translateY(${(1 - cardProgress) * 30}px)`,
-                opacity: feature.isComingSoon ? cardProgress * 0.55 : cardProgress,
-                boxShadow: `0 12px 30px ${COLORS.darker}80`,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* Border with light sweep */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: -2,
-                  left: -2,
-                  right: -2,
-                  bottom: -2,
-                  borderRadius: 20,
-                  background: `conic-gradient(from ${sweepAngle}deg, transparent 0deg, ${feature.color} 30deg, transparent 60deg)`,
-                  opacity: cardProgress * 0.6,
-                }}
-              />
-              {/* Static border */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  borderRadius: 18,
-                  border: `1px solid ${feature.color}40`,
-                }}
-              />
-
-              {/* Icon container */}
-              <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  minWidth: 56,
-                  borderRadius: 14,
-                  background: `linear-gradient(135deg, ${feature.color}30 0%, ${feature.color}10 100%)`,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  position: "relative",
-                  zIndex: 1,
-                  boxShadow: `0 0 20px ${feature.color}30`,
-                }}
-              >
-                <FeatureIcon type={feature.icon} color={feature.color} frame={frame} />
-              </div>
-
-              <div style={{ position: "relative", zIndex: 1, flex: 1 }}>
+              return (
                 <div
+                  key={rowIdx}
                   style={{
+                    background: `linear-gradient(135deg, ${COLORS.dark} 0%, ${COLORS.darker} 100%)`,
+                    borderRadius: 16,
+                    padding: "14px 18px",
                     display: "flex",
                     alignItems: "center",
-                    gap: 10,
-                    marginBottom: 4,
+                    gap: 14,
+                    transform: `scale(${cardProgress}) translateY(${(1 - cardProgress) * 30}px)`,
+                    opacity: cardProgress,
+                    boxShadow: `0 12px 30px ${COLORS.darker}80`,
+                    position: "relative",
+                    overflow: "hidden",
                   }}
                 >
+                  {/* Border with light sweep */}
                   <div
                     style={{
+                      position: "absolute",
+                      top: -2,
+                      left: -2,
+                      right: -2,
+                      bottom: -2,
+                      borderRadius: 18,
+                      background: `conic-gradient(from ${sweepAngle}deg, transparent 0deg, ${feature.color} 30deg, transparent 60deg)`,
+                      opacity: cardProgress * 0.6,
+                    }}
+                  />
+                  {/* Static border */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      borderRadius: 16,
+                      border: `1px solid ${feature.color}40`,
+                    }}
+                  />
+
+                  {/* Emoji icon container */}
+                  <div
+                    style={{
+                      width: 44,
+                      height: 44,
+                      minWidth: 44,
+                      borderRadius: 12,
+                      background: `linear-gradient(135deg, ${feature.color}30 0%, ${feature.color}10 100%)`,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      position: "relative",
+                      zIndex: 1,
+                      boxShadow: `0 0 20px ${feature.color}30`,
                       fontSize: 22,
-                      fontWeight: 700,
-                      color: COLORS.white,
-                      fontFamily: "system-ui, -apple-system, sans-serif",
                     }}
                   >
-                    {feature.title}
+                    {feature.emoji}
                   </div>
-                  {feature.isNew && (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        fontWeight: 700,
-                        color: COLORS.white,
-                        background: COLORS.accentLight,
-                        padding: "2px 8px",
-                        borderRadius: 6,
-                        letterSpacing: "0.05em",
-                        textTransform: "uppercase",
-                        fontFamily: "system-ui, -apple-system, sans-serif",
-                      }}
-                    >
-                      NEW
-                    </div>
-                  )}
-                  {feature.isComingSoon && (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        fontWeight: 700,
-                        color: COLORS.white,
-                        background: COLORS.accent,
-                        padding: "2px 8px",
-                        borderRadius: 6,
-                        letterSpacing: "0.05em",
-                        fontFamily: "system-ui, -apple-system, sans-serif",
-                        opacity: comingSoonPulse,
-                      }}
-                    >
-                      Próximamente
-                    </div>
-                  )}
-                  {feature.isFree && (
-                    <div
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 800,
-                        color: "#FFFFFF",
-                        background: "#22C55E",
-                        padding: "3px 10px",
-                        borderRadius: 6,
-                        letterSpacing: "0.05em",
-                        textTransform: "uppercase",
-                        fontFamily: "system-ui, -apple-system, sans-serif",
-                        boxShadow: "0 0 12px #22C55E80",
-                      }}
-                    >
-                      GRATIS
-                    </div>
-                  )}
-                </div>
-                <div
-                  style={{
-                    fontSize: 16,
-                    color: COLORS.gray,
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                  }}
-                >
-                  {feature.desc}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
 
-      {/* Connecting lines between features */}
-      <svg
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          top: 0,
-          left: 0,
-          pointerEvents: "none",
-          zIndex: 5,
-        }}
-      >
-        {/* Horizontal center line */}
-        <line
-          x1="50%"
-          y1="55%"
-          x2="50%"
-          y2="85%"
-          stroke={`${COLORS.primary}30`}
-          strokeWidth="2"
-          strokeDasharray="8 8"
-          style={{
-            strokeDashoffset: -frame,
-          }}
-        />
-      </svg>
+                  <div style={{ position: "relative", zIndex: 1, flex: 1 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        marginBottom: 2,
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 17,
+                          fontWeight: 700,
+                          color: COLORS.white,
+                          fontFamily: "system-ui, -apple-system, sans-serif",
+                        }}
+                      >
+                        {feature.title}
+                      </div>
+                      {feature.isNew && (
+                        <div
+                          style={{
+                            fontSize: 10,
+                            fontWeight: 700,
+                            color: COLORS.white,
+                            background: COLORS.accentLight,
+                            padding: "1px 6px",
+                            borderRadius: 5,
+                            letterSpacing: "0.05em",
+                            textTransform: "uppercase",
+                            fontFamily: "system-ui, -apple-system, sans-serif",
+                          }}
+                        >
+                          NEW
+                        </div>
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        color: COLORS.gray,
+                        fontFamily: "system-ui, -apple-system, sans-serif",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {feature.desc}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
 
       <Vignette intensity={0.35} />
       <FilmGrain opacity={0.015} />
@@ -1332,10 +1201,10 @@ const Scene4_Demo: React.FC = () => {
 
   // Progress bars animation with glow
   const progressBars = [
-    { label: "Experience", value: 85, color: COLORS.primary },
-    { label: "Expertise", value: 92, color: COLORS.accent },
-    { label: "Authority", value: 78, color: COLORS.primaryLight },
-    { label: "Trust", value: 88, color: COLORS.accentLight },
+    { label: "Experiencia", value: 85, color: COLORS.primary },
+    { label: "Conocimiento", value: 92, color: COLORS.accent },
+    { label: "Autoridad", value: 78, color: COLORS.primaryLight },
+    { label: "Confianza", value: 88, color: COLORS.accentLight },
   ];
 
   // Data particles flowing towards dashboard
@@ -1682,6 +1551,7 @@ const Scene4_Demo: React.FC = () => {
         </div>
       </div>
 
+      <Scanlines opacity={0.009} />
       <Vignette intensity={0.35} />
       <FilmGrain opacity={0.015} />
     </AbsoluteFill>
@@ -1730,7 +1600,7 @@ const Scene5_CTA: React.FC = () => {
     const speed = 2 + (i % 5) * 0.5;
     const wobble = Math.sin(frame * 0.05 + i) * 50;
     const rotationSpeed = (i % 2 === 0 ? 1 : -1) * (2 + i % 3);
-    const size = 6 + Math.random() * 10;
+    const size = 6 + Math.abs(Math.sin(i * 12.9898 + frame * 78.233)) % 1 * 10;
     const shape = i % 4; // 0: circle, 1: rect, 2: star, 3: diamond
 
     return {
@@ -1848,7 +1718,7 @@ const Scene5_CTA: React.FC = () => {
             lineHeight: 1.1,
           }}
         >
-          Aparece cuando la IA responde
+          Aparece en las AI Overviews y en los LLMs
         </div>
 
         {/* Subheadline */}
@@ -2002,6 +1872,7 @@ const Scene5_CTA: React.FC = () => {
         </div>
       </div>
 
+      <Scanlines opacity={0.009} />
       <Vignette intensity={0.4} />
       <FilmGrain opacity={0.012} />
     </AbsoluteFill>
@@ -2045,7 +1916,7 @@ export const LLMFYAd: React.FC = () => {
         startFrom={0}
       />
 
-      {/* Voiceover V4 */}
+      {/* Voiceover V5 */}
       <Audio
         src={staticFile("audio/voiceoverv5.mp3")}
         volume={1}
