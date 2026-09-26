@@ -2,6 +2,14 @@ name: Render Remotion Video
 
 on:
   workflow_dispatch:
+    inputs:
+      composition:
+        description: "Vídeo a renderizar"
+        type: choice
+        default: LLMFYAd
+        options:
+          - LLMFYAd
+          - LLMFYMotion60
 
 jobs:
   render:
@@ -24,11 +32,20 @@ jobs:
         run: npx remotion browser ensure
 
       - name: Render video
-        run: npx remotion render src/index.tsx LLMFYAd out/llmfy-ad.mp4 --codec h264
+        env:
+          COMPOSITION: ${{ inputs.composition }}
+        run: |
+          if [ "$COMPOSITION" = "LLMFYMotion60" ]; then
+            npm run render:60
+            echo "VIDEO_PATH=out/llmfy-motion-60s.mp4" >> "$GITHUB_ENV"
+          else
+            npx remotion render src/index.tsx LLMFYAd out/llmfy-ad.mp4 --codec h264
+            echo "VIDEO_PATH=out/llmfy-ad.mp4" >> "$GITHUB_ENV"
+          fi
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
         with:
-          name: rendered-video
-          path: out/llmfy-ad.mp4
+          name: rendered-video-${{ inputs.composition }}
+          path: ${{ env.VIDEO_PATH }}
           retention-days: 30
