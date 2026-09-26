@@ -4,7 +4,8 @@
   "scripts": {
     "start": "remotion studio",
     "build": "remotion render src/index.tsx LLMFYAd out/llmfy-ad.mp4",
-    "render": "remotion render src/index.tsx LLMFYAd out/llmfy-ad.mp4 --codec h264"
+    "render": "remotion render src/index.tsx LLMFYAd out/llmfy-ad.mp4 --codec h264",
+    "render:60": "remotion render src/index.tsx LLMFYMotion60 out/llmfy-motion-60s.mp4 --codec h264 --jpeg-quality 92"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.407",
