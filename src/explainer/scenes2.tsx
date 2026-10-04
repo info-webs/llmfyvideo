@@ -22,6 +22,7 @@ const SPEC04: ToolSpec = {
   form: { placeholder: "https://ejemplo.com/articulo", url: "https://tu-web.com/guia-zapatillas-running", button: "Analizar Citabilidad" },
   modal: { title: "Analizando con IA", steps: ["Leyendo el contenido de tu página", "Evaluando los 12 factores de citabilidad", "Preparando tu plan de optimización"], eta: "30-45 s" },
   times: { nav: 1.9, field: 2.7, type: 2.9, cps: 24, button: 5.3, modal: 5.45, modalDur: 1.55, results: 7.1 },
+  credits: [150, 149],
 };
 const FACTORS: [string, number][] = [
   ["Answer Engine", 78], ["Entidades", 71], ["Datos Cuantitativos", 54], ["Multi-Perspectiva", 66],
@@ -105,6 +106,7 @@ const SPEC05A: ToolSpec = {
   form: { placeholder: "https://ejemplo.com/tu-articulo", url: "https://tu-web.com/guia-zapatillas-running", button: "Analizar E-E-A-T" },
   modal: { title: "Analizando con IA", steps: ["Leyendo la página", "Evaluando los 4 pilares", "Detectando señales técnicas"], eta: "20-30 s" },
   times: { nav: 0.7, field: 1.2, type: 1.3, cps: 70, button: 2.0, modal: 2.1, modalDur: 0.7, results: 2.9 },
+  credits: [149, 148],
 };
 const PART_B = 5.5; // instante (de diseño) en que arranca Schema Scan
 const SPEC05B: ToolSpec = {
@@ -113,6 +115,7 @@ const SPEC05B: ToolSpec = {
   form: { label: "URL a escanear", placeholder: "ejemplo.com o https://ejemplo.com", url: "https://tu-web.com/guia-zapatillas-running", button: "Escanear", icon: ScanSearch },
   modal: { title: "Escaneando datos estructurados…", steps: ["Descargando la página", "Detectando schemas", "Validando propiedades"], eta: "15-25 s" },
   times: { nav: 0.6, field: 1.1, type: 1.2, cps: 70, button: 1.8, modal: 1.9, modalDur: 0.7, results: 2.6 },
+  credits: [148, 147],
 };
 
 const EeatResults: React.FC = () => {
@@ -253,6 +256,7 @@ const SPEC06: ToolSpec = {
   form: { label: "URL a inspeccionar", placeholder: "https://tudominio.com/pagina", url: "https://tu-web.com/guia-zapatillas-running", button: "Inspeccionar URL" },
   modal: { title: "Inspeccionando…", steps: ["Comprobando robots.txt y el acceso por bot…", "Leyendo el HTML sin JavaScript…", "Renderizando con Chromium…", "Extrayendo y troceando el contenido…"], eta: "8-15 s" },
   times: { nav: 0.8, field: 1.5, type: 1.7, cps: 36, button: 3.1, modal: 3.25, modalDur: 1.35, results: 4.7 },
+  credits: [147, 146],
 };
 const TABS = ["Resumen", "URL en la IA", "Vista IA", "Sin JavaScript", "Fragmentos", "Estructura", "Agentes"];
 const TAB_AT: [number, number][] = [[0, 0], [2, 5.3], [3, 6.9], [5, 8.4]]; // [índice de pestaña, instante en que se pulsa]

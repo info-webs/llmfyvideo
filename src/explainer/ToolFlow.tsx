@@ -15,6 +15,8 @@ export type ToolSpec = {
   modal: { title?: string; steps: string[]; eta?: string };
   times: { nav: number; field: number; type: number; cps?: number; button: number; modal: number; modalDur: number; results: number };
   plan?: string;
+  /** Créditos que muestra la cabecera antes y después de pulsar el botón (encadenados entre escenas). */
+  credits?: [number, number];
 };
 
 export const bump = (t: number, at: number, width = 0.14) => 1 - Math.min(1, Math.abs(t - (at + 0.06)) / width);
@@ -60,7 +62,8 @@ export const ToolFlow: React.FC<{
   const sc = useProg(T.results - 0.15, 1.0, EASE.inOut) * scroll;
   const pressed = Math.max(0, bump(t, T.button));
   const modalP = (t - T.modal) / T.modalDur;
-  const credits = t < T.button + 0.05 ? "150 créditos" : "149 créditos";
+  const cr = spec.credits ?? [150, 149];
+  const credits = `${t < T.button + 0.05 ? cr[0] : cr[1]} créditos`;
   const creditPulse = Math.max(0, 1 - Math.abs(t - (T.button + 0.1)) / 0.35);
 
   const path: CursorPoint[] = pathOverride ?? defaultToolPath(spec, startAt);

@@ -34,6 +34,7 @@ const SPEC07: ToolSpec = {
   },
   modal: { title: "Analizando robots.txt…", steps: ["Descargando tu robots.txt", "Puntuando 17 bots de IA", "Generando la versión optimizada"], eta: "10-20 s" },
   times: { nav: 0.6, field: 1.1, type: 1.2, cps: 30, button: 2.2, modal: 2.3, modalDur: 1.0, results: 3.5 },
+  credits: [146, 145],
 };
 const R7 = SPEC07.times.results;
 const BOTS = [
@@ -147,6 +148,7 @@ const SPEC08: ToolSpec = {
   form: { placeholder: "", url: "", button: "Analizar AIO Semántico" },
   modal: { title: "Analizando AIO semántico…", steps: ["Extrayendo tu URL y las de la competencia", "Comparando con embeddings de IA", "Detectando gaps y entidades"], eta: "45-60 s" },
   times: { nav: 0.7, field: 1.0, type: 1.1, button: 4.0, modal: 4.1, modalDur: 1.1, results: 5.4 },
+  credits: [145, 144],
 };
 const T8 = SPEC08.times, R8 = T8.results, S8 = 570, RT8 = 590;
 const COMPETITORS = ["competidor1.com/zapatillas-running", "competidor2.com/guia-running", "competidor3.es/comprar-zapatillas", "competidor4.com/running-top", "competidor5.es/mejores-zapatillas"];
@@ -407,7 +409,7 @@ export const Scene09: React.FC<SP> = ({ def }) => {
     { t: CHECK_AT, x: TRACKER_BTN.x, y: TRACKER_BTN.y, click: true }, { t: RES_A + 1.6, x: 1340, y: 700 },
     { t: NAV_B, x: navP.x, y: navP.y, click: true }, { t: RUN_AT, x: RUN_BTN.x, y: RUN_BTN.y, click: true }, { t: RUN_AT + 1.5, x: 1340, y: 720 },
   ];
-  const credits = t < CHECK_AT + 0.05 ? "150 créditos" : t < RUN_AT + 0.05 ? "147 créditos" : "143 créditos";
+  const credits = t < CHECK_AT + 0.05 ? "144 créditos" : t < RUN_AT + 0.05 ? "141 créditos" : "137 créditos";
   const pulse = Math.max(0, 1 - Math.abs(t - (CHECK_AT + 0.1)) / 0.35, 1 - Math.abs(t - (RUN_AT + 0.1)) / 0.35);
   const cues: Cue[] = [
     { at: NAV_A, sfx: "click", vol: 0.45 }, { at: CHECK_AT, sfx: "click", vol: 0.5 }, { at: RES_A - 0.1, sfx: "whooshSoft", vol: 0.4 }, { at: RES_A + 0.3, sfx: "riser", vol: 0.3 }, { at: RES_A + 1.5, sfx: "ding", vol: 0.4 },

@@ -132,7 +132,7 @@ export const Scene10: React.FC<SP> = ({ def }) => {
   ];
   return (
     <SceneShell def={def} variant="a" cues={cues}>
-      <AppFlow open="track" active="traffic" prev="prompt" switchAt={NAV10 + 0.05} route="/ai-traffic" path={path} extra={
+      <AppFlow open="track" active="traffic" prev="prompt" switchAt={NAV10 + 0.05} route="/ai-traffic" path={path} credits="137 créditos" extra={
         <>
           <Callout x={SIDE_X} y={300} delay={CONNECT + 0.9} until={RES10 - 0.1} icon={Lock} tone="green" title="Solo lectura" body="Conectas GA4 sin tocar nada." w={380} tilt={1.5} />
           <Callout x={SIDE_X} y={470} delay={RES10 + 0.8} icon={BarChart3} tone="indigo" title="Visitas desde chats de IA" body="ChatGPT, Perplexity, Gemini…" w={380} tilt={-1.5} />

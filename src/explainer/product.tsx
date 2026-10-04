@@ -41,6 +41,13 @@ const GROUPS: { id: GroupId; label: string; icon: LucideIcon; items: NavKey[] }[
 ];
 
 // Geometría de la ventana en el escenario de 1920×1080
+/** Ruta de cada pantalla del dashboard (la barra de direcciones cambia en el instante del clic). */
+export const ROUTES: Record<NavKey, string> = {
+  overview: "", projects: "/projects", llm: "/llm-optimization", eeat: "/eeat-audit", semantic: "/semantic-relevance", human: "/human-first-score",
+  infogain: "/information-gain", geo: "/geo-audit", inspect: "/llm-inspect", schema: "/schema-scan", robots: "/robots-optimizer", indexnow: "/bing-indexing",
+  building: "/ai-building", tracker: "/llmo-tracker", prompt: "/prompt-tracker", sentiment: "/brand-sentiment", traffic: "/ai-traffic",
+};
+
 export const WIN = { x: 120, y: 108, w: 1360, h: 744, bar: 52, side: 268, head: 68 } as const;
 export const CONTENT = { x: WIN.x + WIN.side, y: WIN.y + WIN.bar + WIN.head, w: WIN.w - WIN.side, h: WIN.h - WIN.bar - WIN.head } as const;
 /** Punto del contenido (coordenadas locales) → coordenadas del escenario. */
@@ -130,12 +137,15 @@ const Header: React.FC<{ plan: string; credits: string; creditPulse: number }> =
 /** Ventana completa del dashboard. Los hijos se pintan en el área de contenido (coordenadas locales de CONTENT). */
 export const AppWindow: React.FC<{
   route: string; open: GroupId | null; active: NavKey; prev?: NavKey; switchAt?: number; plan?: string; credits?: string; creditPulse?: number; children?: React.ReactNode; style?: React.CSSProperties;
-}> = ({ route, open, active, prev, switchAt = 0, plan = "Plan Pro", credits = "150 créditos", creditPulse = 0, children, style }) => (
+}> = ({ route, open, active, prev, switchAt = 0, plan = "Plan Pro", credits = "150 créditos", creditPulse = 0, children, style }) => {
+  const { t } = useT();
+  const shownRoute = prev && t < switchAt ? ROUTES[prev] : route;
+  return (
   <div style={{ position: "absolute", left: WIN.x, top: WIN.y, width: WIN.w, height: WIN.h, borderRadius: 24, overflow: "hidden", background: U.page, border: "1px solid rgba(255,255,255,0.28)", boxShadow: "0 70px 130px -34px rgba(0,0,0,0.85), 0 26px 60px -24px rgba(99,102,241,0.5)", ...style }}>
     <div style={{ height: WIN.bar, display: "flex", alignItems: "center", gap: 12, padding: "0 20px", background: "#EEF1F7", borderBottom: `1px solid ${U.border}`, fontFamily: FONT.sans }}>
       {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => <div key={c} style={{ width: 14, height: 14, borderRadius: 7, background: c }} />)}
       <div style={{ marginLeft: 22, height: 32, width: 560, borderRadius: 16, background: "#fff", display: "flex", alignItems: "center", padding: "0 16px", gap: 8, color: U.text2, fontSize: 16, fontFamily: FONT.mono, border: `1px solid ${U.border}` }}>
-        <span style={{ color: U.green }}>●</span> llmfy.ai/dashboard{route}
+        <span style={{ color: U.green }}>●</span> llmfy.ai/dashboard{shownRoute}
       </div>
     </div>
     <div style={{ display: "flex", height: WIN.h - WIN.bar }}>
@@ -146,7 +156,8 @@ export const AppWindow: React.FC<{
       </div>
     </div>
   </div>
-);
+  );
+};
 
 /** Cabecera de herramienta: miga de pan, icono, título y subtítulo. */
 export const PageHead: React.FC<{ icon: LucideIcon; title: string; sub: string; crumb: string; badge?: React.ReactNode; opacity?: number; x?: number; y?: number }> = ({ icon: I, title, sub, crumb, badge, opacity = 1, x = 40, y = 26 }) => (
