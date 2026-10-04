@@ -37,6 +37,8 @@ Consejos para generar la voz: tono cercano y seguro, ritmo medio, sin pausas lar
 
 ## Poner la voz
 
+> Cuando metas la voz real, mide la mezcla con `npm run levels -- out/llmfy-explainer.mp4 10`: ahora mismo el pico de los primeros segundos (efecto «impact» + música) llega a −0,6 dBFS. Normaliza cada mp3 a ≈ −3 dBFS de pico (o baja los `vol` de `impact` y `riser` en las escenas) para que no sature.
+
 1. Genera un mp3 por escena con el texto de la tabla (el nombre es el `id`, p. ej. `public/audio/vo/04-citabilidad.mp3`).
 2. `npm run frames` muestra la duración de cada escena y si ya tiene voz. Con voz, la escena dura **voz + 0,55 s de entrada + 0,9 s de cola** y la animación se estira (nunca se acorta) para seguir a la voz.
 3. La música baja sola mientras habla la voz (ducking). Si una escena se queda corta de aire, sube su `minSec` en `src/explainer/registry.tsx`.
@@ -64,7 +66,7 @@ npm run qa -- --scale=0.6 04-citabilidad:8.6 07-robots:6.4 3300
 npm ci
 npm run sfx                  # regenera los efectos (ya incluidos en public/audio/sfx)
 npm run start                # Remotion Studio: previsualizar
-npm run render:explainer     # → out/llmfy-explainer.mp4 (≈ 35 min en un portátil; usa el workflow si no quieres bloquear la máquina)
+npm run render:explainer     # → out/llmfy-explainer.mp4 (≈ 35 min en un portátil; el workflow de GitHub lo hace en ≈ 10 min y no bloquea la máquina)
 ```
 
 En GitHub: *Actions → Render Remotion Video → Run workflow*, composición `LLMFYExplainer` (artefacto `rendered-explainer`, 30 días).

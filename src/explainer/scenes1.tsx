@@ -168,7 +168,7 @@ export const Scene03: React.FC<SP> = ({ def }) => {
   ];
   return (
     <SceneShell def={def} variant="a" cues={cues}>
-      <Camera keys={[{ t: 0, s: 1, x: 0, y: 0 }, focus(2.0, 980, 585, 1.05), focus(5.2, 960, 540, 1.0), { t: 8.0, s: 1, x: 0, y: 0 }]} drift={4}>
+      <Camera keys={[{ t: 0, s: 1, x: 0, y: 0 }, focus(2.0, 980, 520, 1.03), focus(5.2, 960, 540, 1.0), { t: 8.0, s: 1, x: 0, y: 0 }]} drift={4}>
         {/* A · la web */}
         <AbsoluteFill style={{ opacity: 1 - phaseB, transform: `scale(${lerp(1, 0.94, phaseB)})` }}>
           <div style={{ position: "absolute", left: 250, top: 130, width: 1420, height: 730, borderRadius: 26, overflow: "hidden", background: "linear-gradient(180deg,#FFFFFF,#F5F3FF)", boxShadow: "0 70px 130px -34px rgba(0,0,0,0.85)", fontFamily: FONT.sans }}>
