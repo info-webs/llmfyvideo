@@ -38,7 +38,7 @@ jobs:
         run: |
           if [ "$COMPOSITION" = "LLMFYExplainer" ]; then
             OUT=out/llmfy-explainer.mp4
-            npx remotion render src/index.tsx "$COMPOSITION" "$OUT" --codec h264 --crf 16
+            npx remotion render src/index.tsx "$COMPOSITION" "$OUT" --codec h264 --crf 16 --jpeg-quality 95 --x264-preset slow
           else
             OUT=out/llmfy-ad.mp4
             npx remotion render src/index.tsx "$COMPOSITION" "$OUT" --codec h264
