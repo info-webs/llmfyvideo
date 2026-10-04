@@ -1,4 +1,4 @@
-# LLMFY · Explainer tutorial (≈ 2 min)
+# LLMFY · Explainer tutorial (≈ 2 min 14 s)
 
 Vídeo tutorial de uso de LLMFY: de la primera URL a medir si la IA te cita. 1920×1080, 30 fps, en castellano.
 
@@ -8,7 +8,7 @@ Vídeo tutorial de uso de LLMFY: de la primera URL a medir si la IA te cita. 192
 
 ## Guion de la locución (un mp3 por escena)
 
-El nombre del archivo es el `id` de la escena. Si falta un mp3, esa escena dura lo que estima el texto (≈ 2,5 palabras por segundo) y los subtítulos se reparten sobre esa duración. Con el mp3 puesto, la escena **se ajusta sola a su duración real**, así que no hay que tocar código.
+El nombre del archivo es el `id` de la escena. Si falta un mp3, esa escena dura lo que estima el texto (≈ 2,7 palabras por segundo) y los subtítulos se reparten sobre esa duración. Con el mp3 puesto, la escena **se ajusta sola a su duración real**, así que no hay que tocar código.
 
 | id | Escena | Locución |
 |---|---|---|
@@ -35,13 +35,42 @@ Consejos para generar la voz: tono cercano y seguro, ritmo medio, sin pausas lar
 - «Visibilidad LLM» como citas reales: es una estimación a partir del último análisis.
 - Funciones ocultas o ajenas: Search Console, el chat «Consultor AIO/LLMO», la tarjeta «AI Merchant Pro» y los «Próximamente».
 
+## Poner la voz
+
+1. Genera un mp3 por escena con el texto de la tabla (el nombre es el `id`, p. ej. `public/audio/vo/04-citabilidad.mp3`).
+2. `npm run frames` muestra la duración de cada escena y si ya tiene voz. Con voz, la escena dura **voz + 0,55 s de entrada + 0,9 s de cola** y la animación se estira (nunca se acorta) para seguir a la voz.
+3. La música baja sola mientras habla la voz (ducking). Si una escena se queda corta de aire, sube su `minSec` en `src/explainer/registry.tsx`.
+4. Revisa el total: la música dura 136,6 s; pasado eso se repite.
+
+## Cómo está hecho
+
+- `registry.tsx`: guion (texto y duración mínima por escena) y mapa id → componente.
+- `config.ts`: tiempos (`VO_DELAY`, `TAIL`, `TRANSITION`, `WPS`) y `calculateMetadata`, que lee los mp3 de `public/audio/vo/`.
+- `shell.tsx`: fondo, insignia de capítulo, subtítulos karaoke, locución y efectos de cada escena.
+- `ToolFlow.tsx` + `product.tsx` + `widgets.tsx` + `results.tsx`: ventana del dashboard (clic en el menú → campo → botón → progreso → resultados) con los textos reales de la interfaz.
+- `scenes1.tsx` … `scenes4.tsx`: una escena por paso. Las pantallas llevan **datos de ejemplo** (cifras, URLs y competidores inventados) y así se avisa en pantalla.
+- Los efectos de sonido se generan con `scripts/make-sfx.mjs` (síntesis propia, sin muestras con licencia).
+
+## Revisar fotogramas sin renderizar todo
+
+```bash
+npm run qa -- --scale=0.6 04-citabilidad:8.6 07-robots:6.4 3300
+# «escena:segundos» (segundos de diseño de la escena) o un número de fotograma global → out/qa/*.png (≈ 30 s para 10 imágenes)
+```
+
 ## Renderizar
 
 ```bash
 npm ci
-npm run sfx                  # genera los efectos de sonido (ya incluidos en public/audio/sfx)
+npm run sfx                  # regenera los efectos (ya incluidos en public/audio/sfx)
 npm run start                # Remotion Studio: previsualizar
-npm run render:explainer     # → out/llmfy-explainer.mp4
+npm run render:explainer     # → out/llmfy-explainer.mp4 (≈ 35 min en un portátil; usa el workflow si no quieres bloquear la máquina)
 ```
 
-En GitHub: *Actions → Render Remotion Video → Run workflow* y elige la composición `LLMFYExplainer`.
+En GitHub: *Actions → Render Remotion Video → Run workflow*, composición `LLMFYExplainer` (artefacto `rendered-explainer`, 30 días).
+
+## Notas
+
+- Licencia de Remotion: gratis para personas y empresas de hasta 3 empleados; por encima hace falta licencia de empresa.
+- La música es `public/audio/background.mp3`, la misma del anuncio.
+- Marca: el logo es el real (`public/brand/llmfy-icon-512.png`).
