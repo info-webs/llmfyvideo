@@ -208,8 +208,8 @@ export const Callout: React.FC<{ x: number; y: number; delay: number; icon: Luci
 }) => {
   const p = useSpr(delay, SPR.pop);
   const out = useProg(until ?? 99999, 0.35, EASE.inOut);
-  if (out >= 0.99) return null;
   const { t } = useT();
+  if (out >= 0.99) return null; // los hooks van SIEMPRE antes de salir (si no, React falla al renderizar fotogramas seguidos)
   const float = Math.sin((t + x * 0.01) * 1.6) * 5;
   return (
     <div
