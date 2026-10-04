@@ -1,6 +1,6 @@
 // Composición principal: escenas encadenadas con transición premium + música con ducking + viñeta y grano globales.
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { springTiming, TransitionSeries } from "@remotion/transitions";
 import { Music, type Interval } from "./audio";
 import { Grain, Vignette } from "./fx";
@@ -11,6 +11,12 @@ import { C, VIDEO } from "./theme";
 
 export const Explainer: React.FC<ExplainerProps> = ({ scenes }) => {
   const total = totalFrames(scenes);
+  const frame = useCurrentFrame();
+  // Entrada y salida desde/hacia el color de fondo
+  const veil = Math.max(
+    interpolate(frame, [0, 10], [1, 0], { extrapolateRight: "clamp" }),
+    interpolate(frame, [total - 16, total - 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+  );
   const starts = sceneStarts(scenes);
   // La música baja mientras habla la voz (solo en escenas con locución real)
   const duck: Interval[] = scenes.flatMap((s, i) =>
@@ -40,9 +46,10 @@ export const Explainer: React.FC<ExplainerProps> = ({ scenes }) => {
   return (
     <AbsoluteFill style={{ background: C.bg0 }}>
       <TransitionSeries>{children}</TransitionSeries>
-      <Music src="audio/background.mp3" total={total} duck={duck} base={hasVoice ? 0.3 : 0.34} ducked={hasVoice ? 0.13 : 0.34} />
+      <Music src="audio/background.mp3" total={total} duck={duck} base={hasVoice ? 0.3 : 0.8} ducked={hasVoice ? 0.13 : 0.8} />
       <Vignette strength={0.42} />
       <Grain opacity={0.045} />
+      <AbsoluteFill style={{ background: C.bg0, opacity: veil, pointerEvents: "none" }} />
     </AbsoluteFill>
   );
 };

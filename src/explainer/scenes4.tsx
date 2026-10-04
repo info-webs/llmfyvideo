@@ -88,7 +88,7 @@ const PropertyPicker: React.FC = () => {
 
 const CHATS: [string, number, string][] = [["ChatGPT", 62, U.green], ["Perplexity", 18, U.teal], ["Gemini", 12, U.violet], ["Otros", 8, U.amber]];
 const WEEKLY = [96, 128, 141, 177, 214, 248, 280];
-const fmt = (n: number) => Math.round(n).toString().replace(/B(?=(d{3})+(?!d))/g, ".");
+const fmt = (n: number) => Math.round(n).toLocaleString("es-ES"); // en castellano, los números de 4 cifras van sin punto (1284)
 const TrafficResults: React.FC = () => {
   const { t } = useT();
   const inn = useProg(RES10, 0.5);

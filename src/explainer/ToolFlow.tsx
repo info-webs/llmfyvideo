@@ -66,8 +66,8 @@ export const ToolFlow: React.FC<{
   const path: CursorPoint[] = pathOverride ?? defaultToolPath(spec, startAt);
   const defaultCam: CamKey[] = [
     { t: 0, s: 1, x: 0, y: 0 },
-    focus(T.field - 0.5, CONTENT.x + 520, CONTENT.y + 230, 1.08),
-    focus(T.button + 0.5, CONTENT.x + 520, CONTENT.y + 230, 1.08),
+    focus(T.field - 0.5, CONTENT.x + 520, CONTENT.y + 290, 1.06),
+    focus(T.button + 0.5, CONTENT.x + 520, CONTENT.y + 290, 1.06),
     { t: T.results, s: 1.0, x: 0, y: 0 },
   ];
 
